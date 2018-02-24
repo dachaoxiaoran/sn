@@ -105,4 +105,14 @@ public interface IConstant {
 	 * mysql密码
 	 */
 	String MYSQL_PASSWORD = "root";
+	
+	/**
+	 * 商品链接
+	 */
+	String GOODS_URL = "https://zh.tradingeconomics.com/commodities";
+	
+	/**
+	 * 黄金搜索文本
+	 */
+	String GOLD_TEXT = "<b>黄金</b>";
 }
