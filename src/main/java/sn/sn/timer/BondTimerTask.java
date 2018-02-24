@@ -4,14 +4,14 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.TimerTask;
 
+import sn.sn.bond.Bond;
 import sn.sn.constant.IConstant;
-import sn.sn.currency.Currency;
 
 /**
- * 汇率任务
+ * 债权任务
  * @author 王超
  */
-public class RateTimerTask extends TimerTask {
+public class BondTimerTask extends TimerTask {
 
 	@Override
 	public void run() {
@@ -25,8 +25,8 @@ public class RateTimerTask extends TimerTask {
 				day = Calendar.getInstance().get(Calendar.DAY_OF_WEEK);
 				hour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
 				if (day == IConstant.TIMER_DAY_END && hour > IConstant.TIMER_HOUR_END) break;
-				int rateResult = new Currency().insertRate();
-				System.out.println("rate：" + rateResult + "；" + new Date());
+				int bondResult = new Bond().insertPrice();
+				System.out.println("bond：" + bondResult + "；" + new Date());
 			} catch(Throwable e) {
 				e.printStackTrace();
 			}

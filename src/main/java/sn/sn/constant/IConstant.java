@@ -115,4 +115,64 @@ public interface IConstant {
 	 * 黄金搜索文本
 	 */
 	String GOLD_TEXT = "<b>黄金</b>";
+	
+	/**
+	 * 债券
+	 */
+	String BONDS_URL = "https://zh.tradingeconomics.com/bonds";
+	
+	/**
+	 * 美国10年期政府债券搜索文本
+	 */
+	String BONDS_TEXT = "<b>10Y</b>";
+	
+	/**
+	 * 日历链接
+	 */
+	String CALENDAR_URL = "https://zh.tradingeconomics.com/calendar";
+	
+	/**
+	 * 定时任务每次执行时的间隔时间
+	 */
+	long TIMER_WAIT = 604800000;
+	
+	/**
+	 * 定时任务起始年份
+	 */
+	int TIMER_YEAR = 2018;
+	
+	/**
+	 * 定时任务起始月份
+	 */
+	int TIMER_MONTH = 1;
+	
+	/**
+	 * 定时任务起始日期
+	 */
+	int TIMER_DATE = 26;
+	
+	/**
+	 * 定时任务起始小时
+	 */
+	int TIMER_HOUR = 5;
+	
+	/**
+	 * 定时任务起始分钟
+	 */
+	int TIMER_MINUTE = 0;
+	
+	/**
+	 * 定时任务起始秒
+	 */
+	int TIMER_SECOND = 0;
+	
+	/**
+	 * 定时任务结束天
+	 */
+	int TIMER_DAY_END = 7;
+	
+	/**
+	 * 定时任务结束小时
+	 */
+	int TIMER_HOUR_END = 6;
 }
