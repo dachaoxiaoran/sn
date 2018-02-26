@@ -1,7 +1,6 @@
 package sn.sn.timer;
 
 import java.util.Calendar;
-import java.util.Date;
 import java.util.TimerTask;
 
 import sn.sn.constant.IConstant;
@@ -25,8 +24,7 @@ public class GoldTimerTask extends TimerTask {
 				day = Calendar.getInstance().get(Calendar.DAY_OF_WEEK);
 				hour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
 				if (day == IConstant.TIMER_DAY_END && hour > IConstant.TIMER_HOUR_END) break;
-				int goldResult = new Gold().insertPrice();
-				System.out.println("gold：" + goldResult + "；" + new Date());
+				new Gold().insertPrice();
 			} catch(Throwable e) {
 				e.printStackTrace();
 			}

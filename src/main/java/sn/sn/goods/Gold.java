@@ -5,6 +5,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.Date;
 
 import sn.sn.constant.IConstant;
 import sn.sn.db.DbHelper;
@@ -39,12 +40,12 @@ public class Gold {
 	
 	/**
 	 * 将黄金价格写入数据库
-	 * @return 黄金价格写入数据库结果
 	 * @throws Throwable
 	 */
-	public int insertPrice() throws Throwable {
+	public void insertPrice() throws Throwable {
 		Double price = getData();
 		String sql = "insert into gold(price) values(" + price + ")";
-		return new DbHelper().insert(sql);
+		int res = new DbHelper().insert(sql);
+		System.out.println("gold：" + res + "；" + price + "；" + new Date());
 	}
 }

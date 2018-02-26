@@ -5,6 +5,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -93,10 +94,9 @@ public class Currency {
 	
 	/**
 	 * 将汇率数据写入数据库
-	 * @return 写库结果
 	 * @throws Throwable
 	 */
-	public int insertRate() throws Throwable {
+	public void insertRate() throws Throwable {
 		Map<String, Double> map = new Currency().getData();
 		String sql = "insert into rate(eurusd, usdjpy, gbpusd, usdcad, usdsek, usdchf, usdcny, usdx) values("
 					+ map.get("eurusd") + ", "
@@ -107,6 +107,7 @@ public class Currency {
 					+ map.get("usdchf") + ", "
 					+ map.get("usdcny") + ", "
 					+ map.get("usdx") + ")";
-		return new DbHelper().insert(sql);
+		int res = new DbHelper().insert(sql);
+		System.out.println("rate：" + res + "；" + map.get("usdx") + "；" + new Date());
 	}
 }
