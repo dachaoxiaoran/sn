@@ -5,6 +5,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -17,6 +18,12 @@ import sn.sn.db.DbHelper;
  * @author 王超
  */
 public class Currency {
+	
+	private static Double globalPrice = null;
+	
+	private static Date globalDate = null;
+	
+	private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
 	/**
 	 * 美指计算
@@ -97,8 +104,35 @@ public class Currency {
 	 * @throws Throwable
 	 */
 	public void insertRate() throws Throwable {
+		boolean isHistory = false;
+		Date date = new Date();
 		Map<String, Double> map = new Currency().getData();
-		String sql = "insert into rate(eurusd, usdjpy, gbpusd, usdcad, usdsek, usdchf, usdcny, usdx) values("
+		if (globalPrice != null) {
+			if (globalPrice.doubleValue() == map.get("usdx").doubleValue()) {	//中间的重复数据不入库
+				globalDate = date;
+				isHistory = true;
+				return;
+			} else if (isHistory) {
+				String globalDateStr = dateFormat.format(globalDate);
+				String sql = "insert into rate(eurusd, usdjpy, gbpusd, usdcad, usdsek, usdchf, usdcny, usdx, modifyTime) values("
+						+ map.get("eurusd") + ", "
+						+ map.get("usdjpy") + ", "
+						+ map.get("gbpusd") + ", "
+						+ map.get("usdcad") + ", "
+						+ map.get("usdsek") + ", "
+						+ map.get("usdchf") + ", "
+						+ map.get("usdcny") + ", "
+						+ map.get("usdx") + ", '" + globalDateStr + "')";
+				int res = new DbHelper().insert(sql);
+				isHistory = false;
+				System.out.println("rate：" + res + "；" + globalPrice + "；" + globalDateStr);
+			}
+		}
+		
+		globalPrice = map.get("usdx");
+		globalDate = date;
+		String dateStr = dateFormat.format(date);
+		String sql = "insert into rate(eurusd, usdjpy, gbpusd, usdcad, usdsek, usdchf, usdcny, usdx, modifyTime) values("
 					+ map.get("eurusd") + ", "
 					+ map.get("usdjpy") + ", "
 					+ map.get("gbpusd") + ", "
@@ -106,8 +140,8 @@ public class Currency {
 					+ map.get("usdsek") + ", "
 					+ map.get("usdchf") + ", "
 					+ map.get("usdcny") + ", "
-					+ map.get("usdx") + ")";
+					+ map.get("usdx") + ", '" + dateStr + "')";
 		int res = new DbHelper().insert(sql);
-		System.out.println("rate：" + res + "；" + map.get("usdx") + "；" + new Date());
+		System.out.println("rate：" + res + "；" + map.get("usdx") + "；" + dateStr);
 	}
 }

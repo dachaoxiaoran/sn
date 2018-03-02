@@ -19,7 +19,7 @@ public class RateTimerTask extends TimerTask {
 		long currentMill = 0;
 		while (true) {
 			try {
-				if (System.currentTimeMillis() - currentMill <= 1000) continue;
+				if (System.currentTimeMillis() - currentMill <= 2000) continue;
 				currentMill = System.currentTimeMillis();
 				day = Calendar.getInstance().get(Calendar.DAY_OF_WEEK);
 				hour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
