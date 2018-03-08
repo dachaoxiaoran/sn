@@ -31,15 +31,17 @@ public class Gold {
 	private Double getData() throws Throwable {
 		Double price = null;
 		
-		URL u = new URL(IConstant.GOODS_URL);
+		URL u = new URL(IConstant.XAUUSD_URL + System.currentTimeMillis());
 		URLConnection con = u.openConnection();
 		try(InputStream inputStream = con.getInputStream();
 			BufferedReader br = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"));) {
 			String temp;
 			while ((temp = br.readLine()) != null) {
-				if (price == null && temp.indexOf(IConstant.GOLD_TEXT) != -1) price = 0d;
-				if (price != null && price == 0 && temp.trim().matches(IConstant.IS_DOUBLE)) price = Double.parseDouble(temp.replaceAll(",", ""));
-				if (price != null && price != 0) break;
+				if (!temp.trim().equals("")) {
+					temp = temp.substring(temp.indexOf(IConstant.XAUUSD_TEXT) + IConstant.XAUUSD_TEXT.length());
+					temp = temp.substring(0, temp.indexOf("\""));
+					price = Double.parseDouble(temp);
+				}
 			}
 		}
 		return price;
@@ -73,5 +75,5 @@ public class Gold {
 		String sql = "insert into gold(price, modifyTime) values(" + price + ", '" + dateStr + "')";
 		int res = new DbHelper().insert(sql);
 		System.out.println("gold：" + res + "；" + price + "；" + dateStr);
-	}
+	}	
 }

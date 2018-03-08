@@ -106,7 +106,7 @@ public class Currency {
 	public void insertRate() throws Throwable {
 		boolean isHistory = false;
 		Date date = new Date();
-		Map<String, Double> map = new Currency().getData();
+		Map<String, Double> map = getData();
 		if (globalPrice != null) {
 			if (globalPrice.doubleValue() == map.get("usdx").doubleValue()) {	//中间的重复数据不入库
 				globalDate = date;

@@ -107,14 +107,14 @@ public interface IConstant {
 	String MYSQL_PASSWORD = "root";
 	
 	/**
-	 * 商品链接
+	 * 伦敦金链接
 	 */
-	String GOODS_URL = "https://zh.tradingeconomics.com/commodities";
+	String XAUUSD_URL = "https://js.mc-forex.net/xs_data/xs_reflash_price.php?callback=jQuery17203355605912427688_1520477294752&_=";
 	
 	/**
-	 * 黄金搜索文本
+	 * 伦敦金搜索文本
 	 */
-	String GOLD_TEXT = "<b>黄金</b>";
+	String XAUUSD_TEXT = "\"product\":\"XAUUSD\",\"bid\":\"";
 	
 	/**
 	 * 债券
@@ -175,4 +175,14 @@ public interface IConstant {
 	 * 定时任务结束小时
 	 */
 	int TIMER_HOUR_END = 6;
+	
+	/**
+	 * 鑫圣客户交易情况
+	 */
+	String XS_CRM_URL = "https://crmapi.xs9999.com/Crawl/DataCenter_RealTimeTrade?size=7&days=7";
+	
+	/**
+	 * 伦敦金
+	 */
+	String LDJ_TEXT = "伦敦金";
 }
