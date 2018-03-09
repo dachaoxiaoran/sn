@@ -36,6 +36,8 @@ public class XsCrmTradeData {
 		Map<String, Object> res = new HashMap<>();
 		URL u = new URL(IConstant.XS_CRM_URL);
 		URLConnection con = u.openConnection();
+		con.setConnectTimeout(IConstant.READ_TIME_OUT);
+		con.setReadTimeout(IConstant.READ_TIME_OUT);
 		con.setDoOutput(true);
 		OutputStreamWriter osw = new OutputStreamWriter(con.getOutputStream(), "UTF-8");
 		osw.write("data: { size: 7, days: 7 }");
@@ -93,7 +95,8 @@ public class XsCrmTradeData {
 			if (!exist) {
 				String sql = "insert into xscrmtrade(login, time, price, openClose, buySell, volume) values('" + map.get("strLogin") + "', '" + map.get("strTime") + "', " 
 						+ map.get("dOpenPrice") + ", '" + map.get("strOpenClose") + "', '" + map.get("strBuySell") + "', " + map.get("dVolume") + ")";
-				new DbHelper().insert(sql);
+				int res = new DbHelper().insert(sql);
+				System.out.println("xscrmtrade:" + res);
 			}
 		}
 		globalList.addAll(tempList);

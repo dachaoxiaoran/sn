@@ -41,7 +41,7 @@ public class GoldTimerTask extends TimerTask {
 				}
 				new Gold().insertPrice();
 			} catch(Throwable e) {
-				e.printStackTrace();
+				System.out.println("gold_error:" + e.getMessage());
 			}
 		}
 	}

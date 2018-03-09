@@ -35,7 +35,7 @@ public class BondTimerTask extends TimerTask {
 				}
 				new Bond().insertPrice();
 			} catch(Throwable e) {
-				e.printStackTrace();
+				System.out.println("bond_error:" + e.getMessage());
 			}
 		}
 	}

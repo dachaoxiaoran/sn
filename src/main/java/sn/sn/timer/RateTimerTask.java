@@ -36,7 +36,7 @@ public class RateTimerTask extends TimerTask {
 				}
 				new Currency().insertRate();
 			} catch(Throwable e) {
-				e.printStackTrace();
+				System.out.println("rate_error:" + e.getMessage());
 			}
 		}
 	}

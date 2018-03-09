@@ -185,4 +185,9 @@ public interface IConstant {
 	 * 伦敦金
 	 */
 	String LDJ_TEXT = "伦敦金";
+	
+	/**
+	 * 连接数据源超时时间
+	 */
+	int READ_TIME_OUT = 1000;
 }

@@ -33,6 +33,8 @@ public class Gold {
 		
 		URL u = new URL(IConstant.XAUUSD_URL + System.currentTimeMillis());
 		URLConnection con = u.openConnection();
+		con.setConnectTimeout(IConstant.READ_TIME_OUT);
+		con.setReadTimeout(IConstant.READ_TIME_OUT);
 		try(InputStream inputStream = con.getInputStream();
 			BufferedReader br = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"));) {
 			String temp;

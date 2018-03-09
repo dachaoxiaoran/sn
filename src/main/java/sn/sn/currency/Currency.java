@@ -62,6 +62,8 @@ public class Currency {
 		
 		URL u = new URL(IConstant.CURRENCY_URL);
 		URLConnection con = u.openConnection();
+		con.setConnectTimeout(IConstant.READ_TIME_OUT);
+		con.setReadTimeout(IConstant.READ_TIME_OUT);
 		try(InputStream inputStream = con.getInputStream();
 			BufferedReader br = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"));) {
 			String temp;
