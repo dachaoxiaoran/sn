@@ -80,6 +80,7 @@ public class XsCrmTradeData {
 		List<String> tempList = new ArrayList<>();
 		List<Map> list = filterData(getData());
 		for (Map<String, Object> map : list) {
+			map.remove("CreateTime");
 			String mapStr = JSON.toJSONString(map);
 			tempList.add(mapStr);
 			boolean exist = false;
@@ -95,6 +96,9 @@ public class XsCrmTradeData {
 				new DbHelper().insert(sql);
 			}
 		}
-		globalList = tempList;
+		globalList.addAll(tempList);
+		while (globalList.size() > 100) {
+			globalList.remove(0);
+		}
 	}
 }

@@ -134,7 +134,7 @@ public interface IConstant {
 	/**
 	 * 定时任务每次执行时的间隔时间
 	 */
-	long TIMER_WAIT = 604800000;
+	long TIMER_WAIT = 3600000;
 	
 	/**
 	 * 定时任务起始年份
