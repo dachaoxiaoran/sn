@@ -38,7 +38,7 @@ public class GoldTimerTask extends TimerTask {
 					isRunning = false;
 					break;
 				}
-				if (hour == 6) {
+				if ((day == 3 || day == 4 || day == 5) && hour == 6) {
 					isRunning = false;
 					break;
 				}

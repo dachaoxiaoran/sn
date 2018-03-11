@@ -189,5 +189,5 @@ public interface IConstant {
 	/**
 	 * 连接数据源超时时间
 	 */
-	int READ_TIME_OUT = 1000;
+	int READ_TIME_OUT = 10000;
 }
