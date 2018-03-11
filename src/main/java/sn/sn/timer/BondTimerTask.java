@@ -1,5 +1,6 @@
 package sn.sn.timer;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.TimerTask;
 
@@ -13,6 +14,8 @@ import sn.sn.constant.IConstant;
 public class BondTimerTask extends TimerTask {
 
 	private static boolean isRunning = false;
+	
+	private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 	
 	@Override
 	public void run() {
@@ -35,7 +38,7 @@ public class BondTimerTask extends TimerTask {
 				}
 				new Bond().insertPrice();
 			} catch(Throwable e) {
-				System.out.println("bond_error:" + e.getMessage());
+				System.out.println("bond_error:" + e.getMessage() + ";" + dateFormat.format(System.currentTimeMillis()));
 			}
 		}
 	}

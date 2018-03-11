@@ -85,26 +85,4 @@ public class DbHelper {
 		}
 		return list;
 	}
-	
-	public static void main(String[] args) {
-		try {
-			List<Map<String, String>> list = new DbHelper().select("select * from gold order by id");
-			for (int i = 1; i < list.size(); i++) {
-				Double price1 = Double.parseDouble(list.get(i).get("price"));
-				Double price2 = Double.parseDouble(list.get(i - 1).get("price"));
-				if (Math.abs(price1 - price2) > 4) {
-					System.err.println(list.get(i - 1));
-					System.err.println(list.get(i));
-					System.err.println();
-				}
-			}
-			
-//			List<Map<String, String>> list = new DbHelper().select("select * from gold where modifyTime >= '2018-03-06 10:44:56' and modifyTime <= '2018-03-06 11:44:56' order by id");
-//			for (Map<String, String> map : list) {
-//				System.err.println(map);
-//			}
-		} catch(Throwable e) {
-			e.printStackTrace();
-		}
-	}
 }
