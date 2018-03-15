@@ -98,9 +98,9 @@ public class XsCrmTradeData {
 				int res = new DbHelper().insert(sql);
 				System.out.println("xscrmtrade：" + res + "；" + map.get("dOpenPrice") + "；" + map.get("strOpenClose") + "；" + map.get("strBuySell") + "；" + map.get("dVolume")
 					+ "；" + map.get("strTime"));
-				System.out.println();
 			}
 		}
+		System.out.println();
 		globalList.addAll(tempList);
 		while (globalList.size() > 100) {
 			globalList.remove(0);

@@ -78,5 +78,6 @@ public class Gold {
 		String sql = "insert into gold(price, modifyTime) values(" + price + ", '" + dateStr + "')";
 		int res = new DbHelper().insert(sql);
 		System.out.println("gold：" + res + "；" + price + "；" + dateStr);
+		System.out.println();
 	}	
 }
