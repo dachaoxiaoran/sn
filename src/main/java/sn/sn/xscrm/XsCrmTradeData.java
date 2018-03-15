@@ -96,7 +96,7 @@ public class XsCrmTradeData {
 				String sql = "insert into xscrmtrade(login, time, price, openClose, buySell, volume) values('" + map.get("strLogin") + "', '" + map.get("strTime") + "', " 
 						+ map.get("dOpenPrice") + ", '" + map.get("strOpenClose") + "', '" + map.get("strBuySell") + "', " + map.get("dVolume") + ")";
 				int res = new DbHelper().insert(sql);
-				System.out.println("xscrmtrade:" + res);
+				System.out.println("xscrmtrade：" + res + "；" + map.get("dOpenPrice") + "；" + map.get("strOpenClose") + "；" + map.get("strBuySell") + "；" + map.get("dVolume"));
 			}
 		}
 		globalList.addAll(tempList);

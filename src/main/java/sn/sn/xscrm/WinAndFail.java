@@ -64,7 +64,9 @@ public class WinAndFail {
 			for (int i = 0; i < list.size(); i++) {
 				Map<String, String> map = list.get(i);
 				if (price == 0 && map.get("openClose").equals("close")) {
-					break;
+					list.remove(i);
+					i--;
+					continue;
 				}
 				if (price == 0 && map.get("openClose").equals("open")) {
 					price = Double.parseDouble(map.get("price"));
@@ -80,7 +82,7 @@ public class WinAndFail {
 					}
 					list.remove(i);
 					i--;
-					continue;
+					price = 0;
 				}
 			}
 			Map<String, Integer> winFailMap = new HashMap<>();
@@ -102,7 +104,9 @@ public class WinAndFail {
 			for (int i = 0; i < list.size(); i++) {
 				Map<String, String> map = list.get(i);
 				if (price == 0 && map.get("openClose").equals("close")) {
-					break;
+					list.remove(i);
+					i--;
+					continue;
 				}
 				if (price == 0 && map.get("openClose").equals("open")) {
 					price = Double.parseDouble(map.get("price"));
@@ -118,7 +122,7 @@ public class WinAndFail {
 					}
 					list.remove(i);
 					i--;
-					continue;
+					price = 0;
 				}
 			}
 			if (resMap.containsKey(login)) {
@@ -135,6 +139,25 @@ public class WinAndFail {
 			
 		}
 		
+		return filterMap(resMap);
+	}
+	
+	/**
+	 * 将失败数大于成功数的记录过滤掉
+	 * @param map
+	 * @return
+	 * @throws Throwable
+	 */
+	private Map<String, Map<String, Integer>> filterMap(Map<String, Map<String, Integer>> map) throws Throwable {
+		Map<String, Map<String, Integer>> resMap = new HashMap<>();
+		Iterator<Entry<String, Map<String, Integer>>> iterator = map.entrySet().iterator();
+		while (iterator.hasNext()) {
+			Entry<String, Map<String, Integer>> entry = iterator.next();
+			Map<String, Integer> winFailMap = entry.getValue();
+			if (winFailMap.get("win") > winFailMap.get("fail")) {
+				resMap.put(entry.getKey(), winFailMap);
+			}
+		}
 		return resMap;
 	}
 	
