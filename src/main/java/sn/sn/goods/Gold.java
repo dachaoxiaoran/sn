@@ -68,6 +68,7 @@ public class Gold {
 				int res = new DbHelper().insert(sql);
 				isHistory = false;
 				System.out.println("gold：" + res + "；" + globalPrice + "；" + globalDateStr);
+				System.out.println();
 			}
 		}
 		

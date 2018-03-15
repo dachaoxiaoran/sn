@@ -128,6 +128,7 @@ public class Currency {
 				int res = new DbHelper().insert(sql);
 				isHistory = false;
 				System.out.println("rate：" + res + "；" + globalPrice + "；" + globalDateStr);
+				System.out.println();
 			}
 		}
 		
