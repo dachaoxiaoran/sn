@@ -95,12 +95,9 @@ public class XsCrmTradeData {
 			if (!exist) {
 				String sql = "insert into xscrmtrade(login, time, price, openClose, buySell, volume) values('" + map.get("strLogin") + "', '" + map.get("strTime") + "', " 
 						+ map.get("dOpenPrice") + ", '" + map.get("strOpenClose") + "', '" + map.get("strBuySell") + "', " + map.get("dVolume") + ")";
-				int res = new DbHelper().insert(sql);
-				System.out.println("xscrmtrade：" + res + "；" + map.get("dOpenPrice") + "；" + map.get("strOpenClose") + "；" + map.get("strBuySell") + "；" + map.get("dVolume")
-					+ "；" + map.get("strTime"));
+				new DbHelper().insert(sql);
 			}
 		}
-		System.out.println();
 		globalList.addAll(tempList);
 		while (globalList.size() > 100) {
 			globalList.remove(0);

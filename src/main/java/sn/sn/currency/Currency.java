@@ -128,7 +128,6 @@ public class Currency {
 				int res = new DbHelper().insert(sql);
 				isHistory = false;
 				System.out.println("rate：" + res + "；" + globalPrice + "；" + globalDateStr);
-				System.out.println();
 			}
 		}
 		
@@ -146,6 +145,5 @@ public class Currency {
 					+ map.get("usdx") + ", '" + dateStr + "')";
 		int res = new DbHelper().insert(sql);
 		System.out.println("rate：" + res + "；" + map.get("usdx") + "；" + dateStr);
-		System.out.println();
 	}
 }

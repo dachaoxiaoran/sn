@@ -66,7 +66,6 @@ public class Bond {
 				int res = new DbHelper().insert(sql);
 				isHistory = false;
 				System.out.println("bond：" + res + "；" + globalPrice + "；" + globalDateStr);
-				System.out.println();
 			}
 		}
 		
@@ -76,6 +75,5 @@ public class Bond {
 		String sql = "insert into bond(price, modifyTime) values(" + price + ", '" + dateStr + "')";
 		int res = new DbHelper().insert(sql);
 		System.out.println("bond：" + res + "；" + price + "；" + dateStr);
-		System.out.println();
 	}
 }
