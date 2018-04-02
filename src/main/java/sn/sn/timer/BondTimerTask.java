@@ -5,7 +5,7 @@ import java.util.Calendar;
 import java.util.TimerTask;
 
 import sn.sn.bond.Bond;
-import sn.sn.constant.IConstant;
+import static sn.sn.constant.IConstant.*;
 
 /**
  * 债权任务
@@ -15,7 +15,7 @@ public class BondTimerTask extends TimerTask {
 
 	private static boolean isRunning = false;
 	
-	private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+	private SimpleDateFormat dateFormat = new SimpleDateFormat(TIME_FORMAT);
 	
 	@Override
 	public void run() {
@@ -33,7 +33,7 @@ public class BondTimerTask extends TimerTask {
 				currentMill = System.currentTimeMillis();
 				day = Calendar.getInstance().get(Calendar.DAY_OF_WEEK);
 				hour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
-				if (day == IConstant.TIMER_DAY_END && hour > IConstant.TIMER_HOUR_END) {
+				if (day == TIMER_DAY_END && hour > TIMER_HOUR_END) {
 					isRunning = false;
 					break;
 				}

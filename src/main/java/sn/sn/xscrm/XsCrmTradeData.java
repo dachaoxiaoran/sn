@@ -16,7 +16,7 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.TypeReference;
 
-import sn.sn.constant.IConstant;
+import static sn.sn.constant.IConstant.*;
 import sn.sn.db.DbHelper;
 
 /**
@@ -34,10 +34,10 @@ public class XsCrmTradeData {
 	 */
 	private Map<String, Object> getData() throws Throwable {
 		Map<String, Object> res = new HashMap<>();
-		URL u = new URL(IConstant.XS_CRM_URL);
+		URL u = new URL(XS_CRM_URL);
 		URLConnection con = u.openConnection();
-		con.setConnectTimeout(IConstant.READ_TIME_OUT);
-		con.setReadTimeout(IConstant.READ_TIME_OUT);
+		con.setConnectTimeout(READ_TIME_OUT);
+		con.setReadTimeout(READ_TIME_OUT);
 		con.setDoOutput(true);
 		OutputStreamWriter osw = new OutputStreamWriter(con.getOutputStream(), "UTF-8");
 		osw.write("data: { size: 7, days: 7 }");
@@ -65,7 +65,7 @@ public class XsCrmTradeData {
 		List<Map> messageList = JSONObject.parseArray(message, Map.class);
 		for (int i = 0; i < messageList.size(); i++) {
 			Map<String, Object> map = messageList.get(i);
-			if (!map.get("strSymbol").toString().equals(IConstant.LDJ_TEXT)) {
+			if (!map.get("strSymbol").toString().equals(LDJ_TEXT)) {
 				messageList.remove(i);
 				i--;
 			}

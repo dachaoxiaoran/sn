@@ -10,7 +10,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-import sn.sn.constant.IConstant;
+import static sn.sn.constant.IConstant.*;
 import sn.sn.db.DbHelper;
 
 /**
@@ -23,7 +23,7 @@ public class Currency {
 	
 	private static Date globalDate = null;
 	
-	private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+	private SimpleDateFormat dateFormat = new SimpleDateFormat(TIME_FORMAT);
 
 	/**
 	 * 美指计算
@@ -36,13 +36,7 @@ public class Currency {
 	 * @return	美指
 	 */
 	private double calculateUsdx(double eurusd, double usdjpy, double gbpusd, double usdcad, double usdsek, double usdchf) {
-		return Math.pow(eurusd, IConstant.EURUSD) * 
-				Math.pow(usdjpy, IConstant.USDJPY) * 
-				Math.pow(gbpusd, IConstant.GBPUSD) * 
-				Math.pow(usdcad, IConstant.USDCAD) * 
-				Math.pow(usdsek, IConstant.USDSEK) * 
-				Math.pow(usdchf, IConstant.USDCHF) * 
-				IConstant.USDX;
+		return Math.pow(eurusd, EURUSD) * Math.pow(usdjpy, USDJPY) * Math.pow(gbpusd, GBPUSD) * Math.pow(usdcad, USDCAD) * Math.pow(usdsek, USDSEK) * Math.pow(usdchf, USDCHF) * USDX;
 	}
 	
 	/**
@@ -60,29 +54,29 @@ public class Currency {
 		Double usdchf = null;
 		Double usdcny = null;
 		
-		URL u = new URL(IConstant.CURRENCY_URL);
+		URL u = new URL(CURRENCY_URL);
 		URLConnection con = u.openConnection();
-		con.setConnectTimeout(IConstant.READ_TIME_OUT);
-		con.setReadTimeout(IConstant.READ_TIME_OUT);
+		con.setConnectTimeout(READ_TIME_OUT);
+		con.setReadTimeout(READ_TIME_OUT);
 		try(InputStream inputStream = con.getInputStream();
 			BufferedReader br = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"));) {
 			String temp;
 			while ((temp = br.readLine()) != null) {
-				if (eurusd == null && temp.indexOf(IConstant.EURUSD_TEXT) != -1) eurusd = 0d;
-				if (usdjpy == null && temp.indexOf(IConstant.USDJPY_TEXT) != -1) usdjpy = 0d;
-				if (gbpusd == null && temp.indexOf(IConstant.GBPUSD_TEXT) != -1) gbpusd = 0d;
-				if (usdcad == null && temp.indexOf(IConstant.USDCAD_TEXT) != -1) usdcad = 0d;
-				if (usdsek == null && temp.indexOf(IConstant.USDSEK_TEXT) != -1) usdsek = 0d;
-				if (usdchf == null && temp.indexOf(IConstant.USDCHF_TEXT) != -1) usdchf = 0d;
-				if (usdcny == null && temp.indexOf(IConstant.USDCNY_TEXT) != -1) usdcny = 0d;
+				if (eurusd == null && temp.indexOf(EURUSD_TEXT) != -1) eurusd = 0d;
+				if (usdjpy == null && temp.indexOf(USDJPY_TEXT) != -1) usdjpy = 0d;
+				if (gbpusd == null && temp.indexOf(GBPUSD_TEXT) != -1) gbpusd = 0d;
+				if (usdcad == null && temp.indexOf(USDCAD_TEXT) != -1) usdcad = 0d;
+				if (usdsek == null && temp.indexOf(USDSEK_TEXT) != -1) usdsek = 0d;
+				if (usdchf == null && temp.indexOf(USDCHF_TEXT) != -1) usdchf = 0d;
+				if (usdcny == null && temp.indexOf(USDCNY_TEXT) != -1) usdcny = 0d;
 				
-				if (eurusd != null && eurusd == 0 && temp.trim().matches(IConstant.IS_DOUBLE)) eurusd = Double.parseDouble(temp);
-				if (usdjpy != null && usdjpy == 0 && temp.trim().matches(IConstant.IS_DOUBLE)) usdjpy = Double.parseDouble(temp);
-				if (gbpusd != null && gbpusd == 0 && temp.trim().matches(IConstant.IS_DOUBLE)) gbpusd = Double.parseDouble(temp);
-				if (usdcad != null && usdcad == 0 && temp.trim().matches(IConstant.IS_DOUBLE)) usdcad = Double.parseDouble(temp);
-				if (usdsek != null && usdsek == 0 && temp.trim().matches(IConstant.IS_DOUBLE)) usdsek = Double.parseDouble(temp);
-				if (usdchf != null && usdchf == 0 && temp.trim().matches(IConstant.IS_DOUBLE)) usdchf = Double.parseDouble(temp);
-				if (usdcny != null && usdcny == 0 && temp.trim().matches(IConstant.IS_DOUBLE)) usdcny = Double.parseDouble(temp);
+				if (eurusd != null && eurusd == 0 && temp.trim().matches(IS_DOUBLE)) eurusd = Double.parseDouble(temp);
+				if (usdjpy != null && usdjpy == 0 && temp.trim().matches(IS_DOUBLE)) usdjpy = Double.parseDouble(temp);
+				if (gbpusd != null && gbpusd == 0 && temp.trim().matches(IS_DOUBLE)) gbpusd = Double.parseDouble(temp);
+				if (usdcad != null && usdcad == 0 && temp.trim().matches(IS_DOUBLE)) usdcad = Double.parseDouble(temp);
+				if (usdsek != null && usdsek == 0 && temp.trim().matches(IS_DOUBLE)) usdsek = Double.parseDouble(temp);
+				if (usdchf != null && usdchf == 0 && temp.trim().matches(IS_DOUBLE)) usdchf = Double.parseDouble(temp);
+				if (usdcny != null && usdcny == 0 && temp.trim().matches(IS_DOUBLE)) usdcny = Double.parseDouble(temp);
 				
 				if (eurusd != null && eurusd != 0 && usdjpy != null && usdjpy != 0 && gbpusd != null && gbpusd != 0 && usdcad != null && usdcad != 0 && usdsek != null 
 						&& usdsek != 0 && usdchf != null && usdchf != 0 && usdcny != null) break;

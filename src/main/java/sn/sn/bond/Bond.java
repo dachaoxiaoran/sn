@@ -8,7 +8,7 @@ import java.net.URLConnection;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import sn.sn.constant.IConstant;
+import static sn.sn.constant.IConstant.*;
 import sn.sn.db.DbHelper;
 
 /**
@@ -21,7 +21,7 @@ public class Bond {
 	
 	private static Date globalDate = null;
 	
-	private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+	private SimpleDateFormat dateFormat = new SimpleDateFormat(TIME_FORMAT);
 
 	/**
 	 * 获得美国10年期政府债券价格
@@ -31,16 +31,16 @@ public class Bond {
 	private Double getData() throws Throwable {
 		Double price = null;
 		
-		URL u = new URL(IConstant.BONDS_URL);
+		URL u = new URL(BONDS_URL);
 		URLConnection con = u.openConnection();
-		con.setConnectTimeout(IConstant.READ_TIME_OUT);
-		con.setReadTimeout(IConstant.READ_TIME_OUT);
+		con.setConnectTimeout(READ_TIME_OUT);
+		con.setReadTimeout(READ_TIME_OUT);
 		try(InputStream inputStream = con.getInputStream();
 			BufferedReader br = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"));) {
 			String temp;
 			while ((temp = br.readLine()) != null) {
-				if (price == null && temp.indexOf(IConstant.BONDS_TEXT) != -1) price = 0d;
-				if (price != null && price == 0 && temp.trim().matches(IConstant.IS_DOUBLE)) price = Double.parseDouble(temp);
+				if (price == null && temp.indexOf(BONDS_TEXT) != -1) price = 0d;
+				if (price != null && price == 0 && temp.trim().matches(IS_DOUBLE)) price = Double.parseDouble(temp);
 				if (price != null && price != 0) break;
 			}
 		}

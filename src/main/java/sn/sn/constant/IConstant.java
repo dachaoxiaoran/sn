@@ -190,4 +190,9 @@ public interface IConstant {
 	 * 连接数据源超时时间
 	 */
 	int READ_TIME_OUT = 10000;
+	
+	/**
+	 * 时间格式
+	 */
+	String TIME_FORMAT = "yyyy-MM-dd HH:mm:ss";
 }

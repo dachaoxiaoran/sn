@@ -8,7 +8,7 @@ import java.net.URLConnection;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import sn.sn.constant.IConstant;
+import static sn.sn.constant.IConstant.*;
 import sn.sn.db.DbHelper;
 
 /**
@@ -21,7 +21,7 @@ public class Gold {
 	
 	private static Date globalDate = null;
 	
-	private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+	private SimpleDateFormat dateFormat = new SimpleDateFormat(TIME_FORMAT);
 	
 	/**
 	 * 获得黄金价格
@@ -31,16 +31,16 @@ public class Gold {
 	private Double getData() throws Throwable {
 		Double price = null;
 		
-		URL u = new URL(IConstant.XAUUSD_URL + System.currentTimeMillis());
+		URL u = new URL(XAUUSD_URL + System.currentTimeMillis());
 		URLConnection con = u.openConnection();
-		con.setConnectTimeout(IConstant.READ_TIME_OUT);
-		con.setReadTimeout(IConstant.READ_TIME_OUT);
+		con.setConnectTimeout(READ_TIME_OUT);
+		con.setReadTimeout(READ_TIME_OUT);
 		try(InputStream inputStream = con.getInputStream();
 			BufferedReader br = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"));) {
 			String temp;
 			while ((temp = br.readLine()) != null) {
 				if (!temp.trim().equals("")) {
-					temp = temp.substring(temp.indexOf(IConstant.XAUUSD_TEXT) + IConstant.XAUUSD_TEXT.length());
+					temp = temp.substring(temp.indexOf(XAUUSD_TEXT) + XAUUSD_TEXT.length());
 					temp = temp.substring(0, temp.indexOf("\""));
 					price = Double.parseDouble(temp);
 				}

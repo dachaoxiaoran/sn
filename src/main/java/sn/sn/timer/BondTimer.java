@@ -3,7 +3,7 @@ package sn.sn.timer;
 import java.util.Calendar;
 import java.util.Timer;
 
-import sn.sn.constant.IConstant;
+import static sn.sn.constant.IConstant.*;
 
 /**
  * 债券定时
@@ -17,7 +17,7 @@ public class BondTimer {
 	public void run() {
 		Timer timer = new Timer();
 		Calendar calendar = Calendar.getInstance();
-		calendar.set(IConstant.TIMER_YEAR, IConstant.TIMER_MONTH, IConstant.TIMER_DATE, IConstant.TIMER_HOUR, IConstant.TIMER_MINUTE, IConstant.TIMER_SECOND);
-		timer.schedule(new BondTimerTask(), calendar.getTime(), IConstant.TIMER_WAIT);
+		calendar.set(TIMER_YEAR, TIMER_MONTH, TIMER_DATE, TIMER_HOUR, TIMER_MINUTE, TIMER_SECOND);
+		timer.schedule(new BondTimerTask(), calendar.getTime(), TIMER_WAIT);
 	}
 }

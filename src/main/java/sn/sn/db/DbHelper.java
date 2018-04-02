@@ -12,7 +12,7 @@ import java.util.Map;
 import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.PreparedStatement;
 
-import sn.sn.constant.IConstant;
+import static sn.sn.constant.IConstant.*;
 
 /**
  * 数据库操作
@@ -31,8 +31,8 @@ public class DbHelper {
 		Connection conn = null;
 		PreparedStatement pst = null;
 		try {
-			Class.forName(IConstant.MYSQL_NAME);
-			conn = (Connection) DriverManager.getConnection(IConstant.MYSQL_URL, IConstant.MYSQL_USER, IConstant.MYSQL_PASSWORD);
+			Class.forName(MYSQL_NAME);
+			conn = (Connection) DriverManager.getConnection(MYSQL_URL, MYSQL_USER, MYSQL_PASSWORD);
 			pst = (PreparedStatement) conn.prepareStatement(sql);
 			res = pst.executeUpdate();
 		} catch(Exception e) {
@@ -59,8 +59,8 @@ public class DbHelper {
 		Connection conn = null;
 		PreparedStatement pst = null;
 		try {
-			Class.forName(IConstant.MYSQL_NAME);
-			conn = (Connection) DriverManager.getConnection(IConstant.MYSQL_URL, IConstant.MYSQL_USER, IConstant.MYSQL_PASSWORD);
+			Class.forName(MYSQL_NAME);
+			conn = (Connection) DriverManager.getConnection(MYSQL_URL, MYSQL_USER, MYSQL_PASSWORD);
 			pst = (PreparedStatement) conn.prepareStatement(sql);
 			ResultSet resultSet = pst.executeQuery();
 			
