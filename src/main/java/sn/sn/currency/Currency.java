@@ -127,7 +127,7 @@ public class Currency {
 						+ map.get("usdx") + ", '" + globalDateStr + "')";
 				int res = new DbHelper().insert(sql);
 				isHistory = false;
-				System.out.println("rate：" + res + "；" + globalPrice + "；" + globalDateStr);
+				System.out.println("rate：" + res + "；" + globalPrice.toString().substring(0, 7) + "；" + globalDateStr);
 			}
 		}
 		
@@ -144,6 +144,6 @@ public class Currency {
 					+ map.get("usdcny") + ", "
 					+ map.get("usdx") + ", '" + dateStr + "')";
 		int res = new DbHelper().insert(sql);
-		System.out.println("rate：" + res + "；" + map.get("usdx") + "；" + dateStr);
+		System.out.println("rate：" + res + "；" + map.get("usdx").toString().substring(0, 7) + "；" + dateStr);
 	}
 }

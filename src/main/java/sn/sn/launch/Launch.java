@@ -1,6 +1,7 @@
 package sn.sn.launch;
 
 import sn.sn.timer.BondTimer;
+import sn.sn.timer.BuySellTimer;
 import sn.sn.timer.GoldTimer;
 import sn.sn.timer.RateTimer;
 import sn.sn.timer.XsCrmTradeTimer;
@@ -16,5 +17,6 @@ public class Launch {
 		new GoldTimer().run();
 		new BondTimer().run();
 		new XsCrmTradeTimer().run();
+		new BuySellTimer().run();
 	}
 }

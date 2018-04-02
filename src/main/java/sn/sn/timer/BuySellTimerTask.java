@@ -4,19 +4,19 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.TimerTask;
 
-import sn.sn.bond.Bond;
 import sn.sn.constant.IConstant;
+import sn.sn.xscrm.WinAndFail;
 
 /**
- * 债权任务
+ * buySell比例显示
  * @author 王超
  */
-public class BondTimerTask extends TimerTask {
-
+public class BuySellTimerTask extends TimerTask {
+	
 	private static boolean isRunning = false;
 	
 	private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-	
+
 	@Override
 	public void run() {
 		int day = Calendar.getInstance().get(Calendar.DAY_OF_WEEK);
@@ -25,22 +25,22 @@ public class BondTimerTask extends TimerTask {
 		if (day == 7 && hour > 6) return;	//周六早6点后
 		if (day == 2 && hour < 6) return;	//周一早6点前
 		if (isRunning) return;
-		long currentMill = 0;
 		while (true) {
 			isRunning = true;
 			try {
-				if (System.currentTimeMillis() - currentMill <= 2000) continue;
-				currentMill = System.currentTimeMillis();
 				day = Calendar.getInstance().get(Calendar.DAY_OF_WEEK);
 				hour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
 				if (day == IConstant.TIMER_DAY_END && hour > IConstant.TIMER_HOUR_END) {
 					isRunning = false;
 					break;
 				}
-				new Bond().insertPrice();
+				new WinAndFail().buySell();
+				Thread.sleep(60000);	//1分钟执行一次
 			} catch(Throwable e) {
-				System.out.println("bond_error:" + e.getMessage() + ";" + dateFormat.format(System.currentTimeMillis()));
+				System.out.println("buySell_error:" + e.getMessage() + ";" + dateFormat.format(System.currentTimeMillis()));
 			}
 		}
+		
 	}
+
 }

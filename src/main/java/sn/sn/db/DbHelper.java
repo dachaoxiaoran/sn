@@ -54,8 +54,8 @@ public class DbHelper {
 	 * @return List<Map<String, String>>
 	 * @throws Throwable
 	 */
-	public List<Map<String, String>> select(String sql)throws Throwable {
-		List<Map<String, String>> list = new ArrayList<>();
+	public List<Map<String, Object>> select(String sql)throws Throwable {
+		List<Map<String, Object>> list = new ArrayList<>();
 		Connection conn = null;
 		PreparedStatement pst = null;
 		try {
@@ -69,8 +69,8 @@ public class DbHelper {
 			for (int i = 1; i <= resultSetMetaData.getColumnCount(); i++) names[i - 1] = resultSetMetaData.getColumnName(i);
 			
 			while (resultSet.next()) {
-				Map<String, String> map = new HashMap<>();
-				for (int i = 0; i < names.length; i++) map.put(names[i], resultSet.getObject(i + 1).toString());
+				Map<String, Object> map = new HashMap<>();
+				for (int i = 0; i < names.length; i++) map.put(names[i], resultSet.getObject(i + 1));
 				list.add(map);
 			}
 		} catch(Exception e) {
