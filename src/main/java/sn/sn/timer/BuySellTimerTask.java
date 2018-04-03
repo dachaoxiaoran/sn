@@ -4,6 +4,8 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.TimerTask;
 
+import javafx.scene.control.TextArea;
+
 import static sn.sn.constant.IConstant.*;
 import sn.sn.xscrm.WinAndFail;
 
@@ -17,6 +19,11 @@ public class BuySellTimerTask extends TimerTask {
 	
 	private SimpleDateFormat dateFormat = new SimpleDateFormat(TIME_FORMAT);
 
+	private TextArea textArea;
+	
+	public BuySellTimerTask(TextArea textArea) {
+		this.textArea = textArea;
+	}
 	@Override
 	public void run() {
 		int day = Calendar.getInstance().get(Calendar.DAY_OF_WEEK);
@@ -34,10 +41,10 @@ public class BuySellTimerTask extends TimerTask {
 					isRunning = false;
 					break;
 				}
-				new WinAndFail().buySell();
+				new WinAndFail(textArea).buySell();
 				Thread.sleep(60000);	//1分钟执行一次
 			} catch(Throwable e) {
-				System.out.println("buySell_error:" + e.getMessage() + ";" + dateFormat.format(System.currentTimeMillis()));
+				textArea.appendText("buySell_error：" + e.getMessage() + "；    " + dateFormat.format(System.currentTimeMillis()) + "\n");
 			}
 		}
 		

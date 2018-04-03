@@ -4,6 +4,8 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.TimerTask;
 
+import javafx.scene.control.TextArea;
+
 import static sn.sn.constant.IConstant.*;
 import sn.sn.currency.Currency;
 
@@ -17,6 +19,11 @@ public class RateTimerTask extends TimerTask {
 	
 	private SimpleDateFormat dateFormat = new SimpleDateFormat(TIME_FORMAT);
 
+	private TextArea textArea;
+	
+	public RateTimerTask(TextArea textArea) {
+		this.textArea = textArea;
+	}
 	@Override
 	public void run() {
 		int day = Calendar.getInstance().get(Calendar.DAY_OF_WEEK);
@@ -37,9 +44,9 @@ public class RateTimerTask extends TimerTask {
 					isRunning = false;
 					break;
 				}
-				new Currency().insertRate();
+				new Currency(textArea).insertRate();
 			} catch(Throwable e) {
-				System.out.println("rate_error:" + e.getMessage() + ";" + dateFormat.format(System.currentTimeMillis()));
+				textArea.appendText("rate_error：" + e.getMessage() + "；    " + dateFormat.format(System.currentTimeMillis()) + "\n");
 			}
 		}
 	}

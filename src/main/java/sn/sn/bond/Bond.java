@@ -8,6 +8,8 @@ import java.net.URLConnection;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import javafx.scene.control.TextArea;
+
 import static sn.sn.constant.IConstant.*;
 import sn.sn.db.DbHelper;
 
@@ -19,9 +21,13 @@ public class Bond {
 	
 	private static Double globalPrice = null;
 	
-	private static Date globalDate = null;
-	
 	private SimpleDateFormat dateFormat = new SimpleDateFormat(TIME_FORMAT);
+	
+	private TextArea textArea;
+	
+	public Bond(TextArea textArea) {
+		this.textArea = textArea;
+	}
 
 	/**
 	 * 获得美国10年期政府债券价格
@@ -52,28 +58,18 @@ public class Bond {
 	 * @throws Throwable
 	 */
 	public void insertPrice() throws Throwable {
-		boolean isHistory = false; 
 		Date date = new Date();
 		Double price = getData();
 		if (globalPrice != null) {
 			if (globalPrice.doubleValue() == price.doubleValue()) {	//中间的重复数据不入库
-				globalDate = date;
-				isHistory = true;
 				return;
-			} else if (isHistory) {
-				String globalDateStr = dateFormat.format(globalDate);
-				String sql = "insert into bond(price, modifyTime) values(" + globalPrice + ", '" + globalDateStr + "')";
-				int res = new DbHelper().insert(sql);
-				isHistory = false;
-				System.out.println("bond：" + res + "；" + globalPrice + "；" + globalDateStr);
 			}
 		}
 		
 		globalPrice = price;
-		globalDate = date;
 		String dateStr = dateFormat.format(date);
 		String sql = "insert into bond(price, modifyTime) values(" + price + ", '" + dateStr + "')";
-		int res = new DbHelper().insert(sql);
-		System.out.println("bond：" + res + "；" + price + "；" + dateStr);
+		new DbHelper().insert(sql);
+		textArea.appendText("bond：" + price + "；    " + dateStr + "\n");
 	}
 }

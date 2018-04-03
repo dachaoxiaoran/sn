@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Map;
 
+import javafx.scene.control.TextArea;
 import sn.sn.db.DbHelper;
 
 /** 
@@ -15,6 +16,12 @@ import sn.sn.db.DbHelper;
 public class WinAndFail {
 	
 	private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+	
+	private TextArea textArea;
+	
+	public WinAndFail(TextArea textArea) {
+		this.textArea = textArea;
+	}
 	
 	/**
 	 * 显示当天buySell比例
@@ -29,10 +36,12 @@ public class WinAndFail {
 		List<Map<String, Object>> sellList = new DbHelper().select(sellSql);
 		
 		if (buyList.get(0).get("volume") != null && sellList.get(0).get("volume") != null) {
-			Double buyCount = new BigDecimal(buyList.get(0).get("volume").toString()).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
-			Double sellCount = new BigDecimal(sellList.get(0).get("volume").toString()).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
+			Double buyCount = Double.parseDouble(buyList.get(0).get("volume").toString());
+			Double sellCount = Double.parseDouble(sellList.get(0).get("volume").toString());
+			Double res = new BigDecimal(buyCount - sellCount).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
 			
-			System.out.println("buySell：" + buyCount + " : " + sellCount);
+			if (res >= 0) textArea.appendText("buy：" + res + "\n");
+			else textArea.appendText("sell：" + res + "\n");
 		}
 	}
 }

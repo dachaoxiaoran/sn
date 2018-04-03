@@ -44,7 +44,7 @@ public class XsCrmTradeTimerTask extends TimerTask {
 				}
 				new XsCrmTradeData().insert();
 			} catch(Throwable e) {
-				System.out.println("xsCrmTrade_error:" + e.getMessage() + ";" + dateFormat.format(System.currentTimeMillis()));
+				System.out.println("xsCrmTrade_error：" + e.getMessage() + "；    " + dateFormat.format(System.currentTimeMillis()));
 			}
 		}
 		

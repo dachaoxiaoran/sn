@@ -3,12 +3,16 @@ package sn.sn.currency;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.math.BigDecimal;
 import java.net.URL;
 import java.net.URLConnection;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+
+import javafx.scene.control.TextArea;
 
 import static sn.sn.constant.IConstant.*;
 import sn.sn.db.DbHelper;
@@ -21,9 +25,24 @@ public class Currency {
 	
 	private static Double globalPrice = null;
 	
-	private static Date globalDate = null;
+	private static Double eurusd = null;
+	private static Double usdjpy = null;
+	private static Double gbpusd = null;
+	private static Double usdcad = null;
+	private static Double usdsek = null;
+	private static Double usdchf = null;
+	private static Double usdcny = null;
 	
 	private SimpleDateFormat dateFormat = new SimpleDateFormat(TIME_FORMAT);
+	
+	private DecimalFormat decimalFormat = new DecimalFormat("#,##0.0000");//格式化设置  
+	private DecimalFormat decimalFormatJP = new DecimalFormat("#,##0.00");//格式化设置  
+	
+	private TextArea textArea;
+	
+	public Currency(TextArea textArea) {
+		this.textArea = textArea;
+	}
 
 	/**
 	 * 美指计算
@@ -100,33 +119,89 @@ public class Currency {
 	 * @throws Throwable
 	 */
 	public void insertRate() throws Throwable {
-		boolean isHistory = false;
 		Date date = new Date();
 		Map<String, Double> map = getData();
 		if (globalPrice != null) {
 			if (globalPrice.doubleValue() == map.get("usdx").doubleValue()) {	//中间的重复数据不入库
-				globalDate = date;
-				isHistory = true;
 				return;
-			} else if (isHistory) {
-				String globalDateStr = dateFormat.format(globalDate);
-				String sql = "insert into rate(eurusd, usdjpy, gbpusd, usdcad, usdsek, usdchf, usdcny, usdx, modifyTime) values("
-						+ map.get("eurusd") + ", "
-						+ map.get("usdjpy") + ", "
-						+ map.get("gbpusd") + ", "
-						+ map.get("usdcad") + ", "
-						+ map.get("usdsek") + ", "
-						+ map.get("usdchf") + ", "
-						+ map.get("usdcny") + ", "
-						+ map.get("usdx") + ", '" + globalDateStr + "')";
-				int res = new DbHelper().insert(sql);
-				isHistory = false;
-				System.out.println("rate：" + res + "；" + globalPrice.toString().substring(0, 7) + "；" + globalDateStr);
 			}
 		}
 		
+		String change = "";
+		String changeUsdeur = "";
+		String changeUsdjpy = "";
+		String changeUsdgbp = "";
+		String changeUsdcad = "";
+		String changeUsdsek = "";
+		String changeUsdchf = "";
+		String changeUsdcny = "";
+		
+		if (globalPrice != null) {
+			double changeRes = new BigDecimal(map.get("usdx") - globalPrice).setScale(4, BigDecimal.ROUND_HALF_UP).doubleValue();
+			if (changeRes >= 0) {
+				change += "+" + decimalFormat.format(changeRes);
+			} else {
+				change = "" + decimalFormat.format(changeRes);
+			}
+			
+			double changeUsdeurRes = new BigDecimal(1 / map.get("eurusd") - 1 / eurusd).setScale(4, BigDecimal.ROUND_HALF_UP).doubleValue();
+			if (changeUsdeurRes >= 0) {
+				changeUsdeur += "+" + decimalFormat.format(changeUsdeurRes);
+			} else {
+				changeUsdeur = "" + decimalFormat.format(changeUsdeurRes);
+			}
+			
+			double changeUsdjpyRes = new BigDecimal(map.get("usdjpy") - usdjpy).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
+			if (changeUsdjpyRes >= 0) {
+				changeUsdjpy += "+" + decimalFormatJP.format(changeUsdjpyRes);
+			} else {
+				changeUsdjpy = "" + decimalFormatJP.format(changeUsdjpyRes);
+			}
+			
+			double changeUsdgbpRes = new BigDecimal(1 / map.get("gbpusd") - 1 / gbpusd).setScale(4, BigDecimal.ROUND_HALF_UP).doubleValue();
+			if (changeUsdgbpRes >= 0) {
+				changeUsdgbp += "+" + decimalFormat.format(changeUsdgbpRes);
+			} else {
+				changeUsdgbp = "" + decimalFormat.format(changeUsdgbpRes);
+			}
+			
+			double changeUsdcadRes = new BigDecimal(map.get("usdcad") - usdcad).setScale(4, BigDecimal.ROUND_HALF_UP).doubleValue();
+			if (changeUsdcadRes >= 0) {
+				changeUsdcad += "+" + decimalFormat.format(changeUsdcadRes);
+			} else {
+				changeUsdcad = "" + decimalFormat.format(changeUsdcadRes);
+			}
+			
+			double changeUsdsekRes = new BigDecimal(map.get("usdsek") - usdsek).setScale(4, BigDecimal.ROUND_HALF_UP).doubleValue();
+			if (changeUsdsekRes >= 0) {
+				changeUsdsek += "+" + decimalFormat.format(changeUsdsekRes);
+			} else {
+				changeUsdsek = "" + decimalFormat.format(changeUsdsekRes);
+			}
+			
+			double changeUsdchfRes = new BigDecimal(map.get("usdchf") - usdchf).setScale(4, BigDecimal.ROUND_HALF_UP).doubleValue();
+			if (changeUsdchfRes >= 0) {
+				changeUsdchf += "+" + decimalFormat.format(changeUsdchfRes);
+			} else {
+				changeUsdchf = "" + decimalFormat.format(changeUsdchfRes);
+			}
+			
+			double changeUsdcnyRes = new BigDecimal(map.get("usdcny") - usdcny).setScale(4, BigDecimal.ROUND_HALF_UP).doubleValue();
+			if (changeUsdcnyRes >= 0) {
+				changeUsdcny += "+" + decimalFormat.format(changeUsdcnyRes);
+			} else {
+				changeUsdcny = "" + decimalFormat.format(changeUsdcnyRes);
+			}
+		}
 		globalPrice = map.get("usdx");
-		globalDate = date;
+		eurusd = map.get("eurusd");
+		usdjpy = map.get("usdjpy");
+		gbpusd = map.get("gbpusd");
+		usdcad = map.get("usdcad");
+		usdsek = map.get("usdsek");
+		usdchf = map.get("usdchf");
+		usdcny = map.get("usdcny");
+		
 		String dateStr = dateFormat.format(date);
 		String sql = "insert into rate(eurusd, usdjpy, gbpusd, usdcad, usdsek, usdchf, usdcny, usdx, modifyTime) values("
 					+ map.get("eurusd") + ", "
@@ -137,7 +212,15 @@ public class Currency {
 					+ map.get("usdchf") + ", "
 					+ map.get("usdcny") + ", "
 					+ map.get("usdx") + ", '" + dateStr + "')";
-		int res = new DbHelper().insert(sql);
-		System.out.println("rate：" + res + "；" + map.get("usdx").toString().substring(0, 7) + "；" + dateStr);
+		new DbHelper().insert(sql);
+		textArea.appendText("rate：" + map.get("usdx").toString().substring(0, 7) + change + "；\t"
+							+ "usdeur：" + new BigDecimal(1 / map.get("eurusd")).setScale(4, BigDecimal.ROUND_HALF_UP).doubleValue() + changeUsdeur + "；\t"
+							+ "usdjpy：" + new BigDecimal(map.get("usdjpy")).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue() + changeUsdjpy + "；\t"
+							+ "usdgbp：" + new BigDecimal(1 / map.get("gbpusd")).setScale(4, BigDecimal.ROUND_HALF_UP).doubleValue() + changeUsdgbp + "；\t"
+							+ "usdcad：" + new BigDecimal(map.get("usdcad")).setScale(4, BigDecimal.ROUND_HALF_UP).doubleValue() + changeUsdcad + "；\t"
+							+ "usdsek：" + new BigDecimal(map.get("usdsek")).setScale(4, BigDecimal.ROUND_HALF_UP).doubleValue() + changeUsdsek + "；\t"
+							+ "usdchf：" + new BigDecimal(map.get("usdchf")).setScale(4, BigDecimal.ROUND_HALF_UP).doubleValue() + changeUsdchf + "；\t"
+							+ "usdcny：" + new BigDecimal(map.get("usdcny")).setScale(4, BigDecimal.ROUND_HALF_UP).doubleValue() + changeUsdcny + "；\t"
+							+ dateStr + "\n");
 	}
 }

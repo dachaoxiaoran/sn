@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.TimerTask;
 
+import javafx.scene.control.TextArea;
 import sn.sn.bond.Bond;
 import static sn.sn.constant.IConstant.*;
 
@@ -16,6 +17,12 @@ public class BondTimerTask extends TimerTask {
 	private static boolean isRunning = false;
 	
 	private SimpleDateFormat dateFormat = new SimpleDateFormat(TIME_FORMAT);
+	
+	private TextArea textArea;
+	
+	public BondTimerTask(TextArea textArea) {
+		this.textArea = textArea;
+	}
 	
 	@Override
 	public void run() {
@@ -37,9 +44,9 @@ public class BondTimerTask extends TimerTask {
 					isRunning = false;
 					break;
 				}
-				new Bond().insertPrice();
+				new Bond(textArea).insertPrice();
 			} catch(Throwable e) {
-				System.out.println("bond_error:" + e.getMessage() + ";" + dateFormat.format(System.currentTimeMillis()));
+				textArea.appendText("bond_error：" + e.getMessage() + "：    " + dateFormat.format(System.currentTimeMillis()) + "\n");
 			}
 		}
 	}

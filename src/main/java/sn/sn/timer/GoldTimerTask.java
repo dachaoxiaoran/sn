@@ -4,6 +4,8 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.TimerTask;
 
+import javafx.scene.control.TextArea;
+
 import static sn.sn.constant.IConstant.*;
 import sn.sn.goods.Gold;
 
@@ -17,6 +19,11 @@ public class GoldTimerTask extends TimerTask {
 	
 	private SimpleDateFormat dateFormat = new SimpleDateFormat(TIME_FORMAT);
 
+	private TextArea textArea;
+	
+	public GoldTimerTask(TextArea textArea) {
+		this.textArea = textArea;
+	}
 	@Override
 	public void run() {
 		int day = Calendar.getInstance().get(Calendar.DAY_OF_WEEK);
@@ -42,9 +49,9 @@ public class GoldTimerTask extends TimerTask {
 					isRunning = false;
 					break;
 				}
-				new Gold().insertPrice();
+				new Gold(textArea).insertPrice();
 			} catch(Throwable e) {
-				System.out.println("gold_error:" + e.getMessage() + ";" + dateFormat.format(System.currentTimeMillis()));
+				textArea.appendText("gold_error：" + e.getMessage() + "；    " + dateFormat.format(System.currentTimeMillis()) + "\n");
 			}
 		}
 	}
