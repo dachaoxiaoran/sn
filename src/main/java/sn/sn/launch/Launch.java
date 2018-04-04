@@ -31,6 +31,7 @@ public class Launch extends Application {
 		TextArea hand = null;
 		try {
 			FXMLLoader loader = new FXMLLoader();
+			//loader.setLocation(new File("C:/MainView.fxml").toURL());
 	        loader.setLocation(this.getClass().getResource("../view/fxml/MainView.fxml"));
 	        HBox rootLayout = (HBox) loader.load();
 	        Scene scene = new Scene(rootLayout);
