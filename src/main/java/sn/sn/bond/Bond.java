@@ -70,6 +70,7 @@ public class Bond {
 		String dateStr = dateFormat.format(date);
 		String sql = "insert into bond(price, modifyTime) values(" + price + ", '" + dateStr + "')";
 		new DbHelper().insert(sql);
+		if (textArea.getLength() > 10000) textArea.clear();
 		textArea.appendText("bond：" + price + "；    " + dateStr + "\n");
 	}
 }

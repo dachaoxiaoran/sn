@@ -213,6 +213,7 @@ public class Currency {
 					+ map.get("usdcny") + ", "
 					+ map.get("usdx") + ", '" + dateStr + "')";
 		new DbHelper().insert(sql);
+		if (textArea.getLength() > 10000) textArea.clear();
 		textArea.appendText("rate：" + map.get("usdx").toString().substring(0, 7) + change + "；\t"
 							+ "usdeur：" + new BigDecimal(1 / map.get("eurusd")).setScale(4, BigDecimal.ROUND_HALF_UP).doubleValue() + changeUsdeur + "；\t"
 							+ "usdjpy：" + new BigDecimal(map.get("usdjpy")).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue() + changeUsdjpy + "；\t"

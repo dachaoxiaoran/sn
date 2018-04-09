@@ -82,6 +82,7 @@ public class Gold {
 		String dateStr = dateFormat.format(date);
 		String sql = "insert into gold(price, modifyTime) values(" + price + ", '" + dateStr + "')";
 		new DbHelper().insert(sql);
+		if (textArea.getLength() > 10000) textArea.clear();
 		textArea.appendText("gold：" + price + change + "；\t" + dateStr + "\n");
 	}	
 }

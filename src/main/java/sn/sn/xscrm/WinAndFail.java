@@ -40,6 +40,7 @@ public class WinAndFail {
 			Double sellCount = Double.parseDouble(sellList.get(0).get("volume").toString());
 			Double res = new BigDecimal(buyCount - sellCount).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
 			
+			if (textArea.getLength() > 10000) textArea.clear();
 			if (res >= 0) textArea.appendText("buy：" + res + "\n");
 			else textArea.appendText("sell：" + res + "\n");
 		}
