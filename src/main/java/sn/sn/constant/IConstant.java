@@ -195,4 +195,29 @@ public interface IConstant {
 	 * 时间格式
 	 */
 	String TIME_FORMAT = "yyyy-MM-dd HH:mm:ss";
+	
+	/**
+	 * 金道客户交易情况
+	 */
+	String JD_CRM_URL = "https://www.24k.hk/public/datas/24k_index_realTime_data.json";
+	
+	/**
+	 * 建仓
+	 */
+	String CREATE = "建仓";
+	
+	/**
+	 * 平仓
+	 */
+	String CLEAR = "平仓";
+	
+	/**
+	 * 卖
+	 */
+	String SELL = "卖";
+	
+	/**
+	 * 买
+	 */
+	String BUY = "买";
 }

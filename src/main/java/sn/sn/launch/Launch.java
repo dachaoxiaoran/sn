@@ -14,6 +14,7 @@ import javafx.stage.WindowEvent;
 import sn.sn.timer.BondTimer;
 import sn.sn.timer.BuySellTimer;
 import sn.sn.timer.GoldTimer;
+import sn.sn.timer.JdCrmTradeTimer;
 import sn.sn.timer.RateTimer;
 import sn.sn.timer.XsCrmTradeTimer;
 
@@ -65,6 +66,7 @@ public class Launch extends Application {
 		new GoldTimer(price).run();
 		new BondTimer(bond).run();
 		new XsCrmTradeTimer().run();
+		new JdCrmTradeTimer().run();
 		new BuySellTimer(hand).run();
 	}
 
