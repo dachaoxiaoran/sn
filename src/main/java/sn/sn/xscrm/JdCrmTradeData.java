@@ -38,7 +38,7 @@ public class JdCrmTradeData {
 		con.setReadTimeout(READ_TIME_OUT);
 		con.setDoOutput(true);
 		try(InputStream inputStream = con.getInputStream();
-				BufferedReader br = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"));) {
+				BufferedReader br = new BufferedReader(new InputStreamReader(inputStream, ENCODE));) {
 				String temp;
 				while ((temp = br.readLine()) != null) {
 					res = JSON.parseObject(temp, new TypeReference<Map<String, Object>>() {});

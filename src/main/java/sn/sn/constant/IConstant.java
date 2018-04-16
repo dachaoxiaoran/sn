@@ -220,4 +220,29 @@ public interface IConstant {
 	 * 买
 	 */
 	String BUY = "买";
+	
+	/**
+	 * 界面配置文件路径
+	 */
+	String MAIN_VIEW_PATH = "C:/MainView.fxml";
+	
+	/**
+	 * 编码集
+	 */
+	String ENCODE = "UTF-8";
+	
+	/**
+	 * textarea最大字符数
+	 */
+	Integer TEXTAREA_LIMIT = 10000;
+	
+	/**
+	 * 插入gold表
+	 */
+	String INSERT_GOLD = "insert into gold(price, modifyTime) values(%s, '%s')";
+	
+	/**
+	 * 插入bond表
+	 */
+	String INSERT_BOND = "insert into bond(price, modifyTime) values(%s, '%s')";
 }

@@ -7,6 +7,7 @@ import java.util.Map;
 
 import javafx.scene.control.TextArea;
 import sn.sn.db.DbHelper;
+import static sn.sn.constant.IConstant.*;
 
 /** 
 * @author 大超小然: 
@@ -69,7 +70,7 @@ public class WinAndFail {
 			Double resXS = new BigDecimal(buyCountXS - sellCountXS).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
 			Double resJD = new BigDecimal(buyCountJD - sellCountJD).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
 			
-			if (textArea.getLength() > 10000) textArea.clear();
+			if (textArea.getLength() > TEXTAREA_LIMIT) textArea.clear();
 			if (res >= 0) textArea.appendText("buy：" + res + "；");
 			else textArea.appendText("sell：" + res + "；");
 			textArea.appendText("XS：" + resXS + "；JD：" + resJD + "\n");

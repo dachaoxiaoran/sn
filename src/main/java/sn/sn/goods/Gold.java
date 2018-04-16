@@ -43,7 +43,7 @@ public class Gold {
 		con.setConnectTimeout(READ_TIME_OUT);
 		con.setReadTimeout(READ_TIME_OUT);
 		try(InputStream inputStream = con.getInputStream();
-			BufferedReader br = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"));) {
+			BufferedReader br = new BufferedReader(new InputStreamReader(inputStream, ENCODE));) {
 			String temp;
 			while ((temp = br.readLine()) != null) {
 				if (!temp.trim().equals("")) {
@@ -80,9 +80,8 @@ public class Gold {
 		}
 		globalPrice = price;
 		String dateStr = dateFormat.format(date);
-		String sql = "insert into gold(price, modifyTime) values(" + price + ", '" + dateStr + "')";
-		new DbHelper().insert(sql);
-		if (textArea.getLength() > 10000) textArea.clear();
+		new DbHelper().insert(String.format(INSERT_GOLD, price, dateStr));
+		if (textArea.getLength() > TEXTAREA_LIMIT) textArea.clear();
 		textArea.appendText("gold：" + price + change + "；\t" + dateStr + "\n");
 	}	
 }

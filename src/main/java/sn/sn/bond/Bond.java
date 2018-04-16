@@ -42,7 +42,7 @@ public class Bond {
 		con.setConnectTimeout(READ_TIME_OUT);
 		con.setReadTimeout(READ_TIME_OUT);
 		try(InputStream inputStream = con.getInputStream();
-			BufferedReader br = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"));) {
+			BufferedReader br = new BufferedReader(new InputStreamReader(inputStream, ENCODE));) {
 			String temp;
 			while ((temp = br.readLine()) != null) {
 				if (price == null && temp.indexOf(BONDS_TEXT) != -1) price = 0d;
@@ -68,9 +68,8 @@ public class Bond {
 		
 		globalPrice = price;
 		String dateStr = dateFormat.format(date);
-		String sql = "insert into bond(price, modifyTime) values(" + price + ", '" + dateStr + "')";
-		new DbHelper().insert(sql);
-		if (textArea.getLength() > 10000) textArea.clear();
+		new DbHelper().insert(String.format(INSERT_BOND, price, dateStr));
+		if (textArea.getLength() > TEXTAREA_LIMIT) textArea.clear();
 		textArea.appendText("bond：" + price + "；    " + dateStr + "\n");
 	}
 }

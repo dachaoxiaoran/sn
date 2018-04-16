@@ -78,7 +78,7 @@ public class Currency {
 		con.setConnectTimeout(READ_TIME_OUT);
 		con.setReadTimeout(READ_TIME_OUT);
 		try(InputStream inputStream = con.getInputStream();
-			BufferedReader br = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"));) {
+			BufferedReader br = new BufferedReader(new InputStreamReader(inputStream, ENCODE));) {
 			String temp;
 			while ((temp = br.readLine()) != null) {
 				if (eurusd == null && temp.indexOf(EURUSD_TEXT) != -1) eurusd = 0d;
@@ -213,7 +213,7 @@ public class Currency {
 					+ map.get("usdcny") + ", "
 					+ map.get("usdx") + ", '" + dateStr + "')";
 		new DbHelper().insert(sql);
-		if (textArea.getLength() > 10000) textArea.clear();
+		if (textArea.getLength() > TEXTAREA_LIMIT) textArea.clear();
 		textArea.appendText("rate：" + map.get("usdx").toString().substring(0, 7) + change + "；\t"
 							+ "usdeur：" + new BigDecimal(1 / map.get("eurusd")).setScale(4, BigDecimal.ROUND_HALF_UP).doubleValue() + changeUsdeur + "；\t"
 							+ "usdjpy：" + new BigDecimal(map.get("usdjpy")).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue() + changeUsdjpy + "；\t"

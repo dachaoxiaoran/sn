@@ -1,5 +1,7 @@
 package sn.sn.launch;
 
+import java.io.File;
+
 import javafx.application.Application;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
@@ -17,6 +19,7 @@ import sn.sn.timer.GoldTimer;
 import sn.sn.timer.JdCrmTradeTimer;
 import sn.sn.timer.RateTimer;
 import sn.sn.timer.XsCrmTradeTimer;
+import static sn.sn.constant.IConstant.*;
 
 /**
  * 
@@ -32,8 +35,7 @@ public class Launch extends Application {
 		TextArea hand = null;
 		try {
 			FXMLLoader loader = new FXMLLoader();
-			//loader.setLocation(new File("C:/MainView.fxml").toURL());
-	        loader.setLocation(this.getClass().getResource("../view/fxml/MainView.fxml"));
+			loader.setLocation(new File(MAIN_VIEW_PATH).toURI().toURL());
 	        HBox rootLayout = (HBox) loader.load();
 	        Scene scene = new Scene(rootLayout);
 	        
