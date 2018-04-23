@@ -245,4 +245,7 @@ public interface IConstant {
 	 * 插入bond表
 	 */
 	String INSERT_BOND = "insert into bond(price, modifyTime) values(%s, '%s')";
+	
+	
+	String PRICE_CHANGE = "select price from gold where modifyTime > '%s 06:00:00' and modifyTime <= '%s 05:00:00' order by id";
 }

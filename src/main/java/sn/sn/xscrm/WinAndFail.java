@@ -18,6 +18,8 @@ public class WinAndFail {
 	
 	private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 	
+	private SimpleDateFormat dateFormatTime = new SimpleDateFormat(TIME_FORMAT);
+	
 	private TextArea textArea;
 	
 	public WinAndFail(TextArea textArea) {
@@ -73,7 +75,7 @@ public class WinAndFail {
 			if (textArea.getLength() > TEXTAREA_LIMIT) textArea.clear();
 			if (res >= 0) textArea.appendText("buy：" + res + "；");
 			else textArea.appendText("sell：" + res + "；");
-			textArea.appendText("XS：" + resXS + "；JD：" + resJD + "\n");
+			textArea.appendText("XS：" + resXS + "；JD：" + resJD + "；" + dateFormatTime.format(System.currentTimeMillis()) + "\n");
 		}
 	}
 }
