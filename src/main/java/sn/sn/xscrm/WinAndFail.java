@@ -2,6 +2,7 @@ package sn.sn.xscrm;
 
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
 
@@ -31,9 +32,27 @@ public class WinAndFail {
 	 * @throws Throwable
 	 */
 	public void buySell() throws Throwable {
-		String date = dateFormat.format(System.currentTimeMillis());
-		String buySql = "select sum(volume) volume from xscrmtrade where modifyTime >= '" + date + " 06:00:00' and openClose = 'open' and buySell = 'buy'";
-		String sellSql = "select sum(volume) volume from xscrmtrade where modifyTime >= '" + date + " 06:00:00' and openClose = 'open' and buySell = 'sell'";
+		String beforeDate = null;
+		String afterDate = null;
+		
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTimeInMillis(System.currentTimeMillis());
+		int hour = calendar.get(Calendar.HOUR_OF_DAY);
+		
+		if (hour >= 6) {
+			beforeDate = dateFormat.format(System.currentTimeMillis());
+			calendar.add(Calendar.DAY_OF_MONTH, +1);
+			afterDate = dateFormat.format(calendar.getTime());
+		} else {
+			calendar.add(Calendar.DAY_OF_MONTH, -1);
+			beforeDate = dateFormat.format(calendar.getTime());
+			afterDate = dateFormat.format(System.currentTimeMillis());
+		}
+		
+		String buySql = "select sum(volume) volume from xscrmtrade where modifyTime >= '" + beforeDate + " 06:00:00' and modifyTime <= '"
+				+ afterDate + " 05:00:00' and openClose = 'open' and buySell = 'buy'";
+		String sellSql = "select sum(volume) volume from xscrmtrade where modifyTime >= '" + beforeDate + " 06:00:00' and modifyTime <= '"
+				+ afterDate + " 05:00:00' and openClose = 'open' and buySell = 'sell'";
 		
 		String buySqlXS = buySql + " and source = 'XSJY'";
 		String sellSqlXS = sellSql + " and source = 'XSJY'";
