@@ -46,7 +46,7 @@ public class RateTimerTask extends TimerTask {
 				}
 				new Currency(textArea).insertRate();
 			} catch(Throwable e) {
-				textArea.appendText("rate_error：" + e.getMessage() + "；    " + dateFormat.format(System.currentTimeMillis()) + "\n");
+				System.out.println("rate_error：" + e.getMessage() + "；    " + dateFormat.format(System.currentTimeMillis()));
 			}
 		}
 	}

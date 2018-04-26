@@ -45,13 +45,13 @@ public class GoldTimerTask extends TimerTask {
 					isRunning = false;
 					break;
 				}
-				if ((day == 3 || day == 4 || day == 5) && hour == 6) {
+				if ((day == 3 || day == 4 || day == 5 || day == 6) && hour == 5) {
 					isRunning = false;
 					break;
 				}
 				new Gold(textArea).insertPrice();
 			} catch(Throwable e) {
-				textArea.appendText("gold_error：" + e.getMessage() + "；    " + dateFormat.format(System.currentTimeMillis()) + "\n");
+				System.out.println("gold_error：" + e.getMessage() + "；    " + dateFormat.format(System.currentTimeMillis()));
 			}
 		}
 	}

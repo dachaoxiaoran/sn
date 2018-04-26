@@ -44,7 +44,7 @@ public class BuySellTimerTask extends TimerTask {
 				new WinAndFail(textArea).buySell();
 				Thread.sleep(60000);	//1分钟执行一次
 			} catch(Throwable e) {
-				textArea.appendText("buySell_error：" + e.getMessage() + "；    " + dateFormat.format(System.currentTimeMillis()) + "\n");
+				System.out.println("buySell_error：" + e.getMessage() + "；    " + dateFormat.format(System.currentTimeMillis()));
 			}
 		}
 		

@@ -46,7 +46,7 @@ public class BondTimerTask extends TimerTask {
 				}
 				new Bond(textArea).insertPrice();
 			} catch(Throwable e) {
-				textArea.appendText("bond_error：" + e.getMessage() + "：    " + dateFormat.format(System.currentTimeMillis()) + "\n");
+				System.out.println("bond_error：" + e.getMessage() + "：    " + dateFormat.format(System.currentTimeMillis()));
 			}
 		}
 	}
