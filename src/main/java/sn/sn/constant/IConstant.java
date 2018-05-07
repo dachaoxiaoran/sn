@@ -248,4 +248,9 @@ public interface IConstant {
 	
 	
 	String PRICE_CHANGE = "select price from gold where modifyTime > '%s 06:00:00' and modifyTime <= '%s 05:00:00' order by id";
+	
+	/**
+	 * 美指、汇率
+	 */
+	String MONEY_URL = "http://hq.sinajs.cn/rn=1525672321226list=fx_seurusd,fx_susdjpy,fx_sgbpusd,fx_susdcad,fx_susdsek,fx_susdchf,fx_susdcny,DINIW";
 }
