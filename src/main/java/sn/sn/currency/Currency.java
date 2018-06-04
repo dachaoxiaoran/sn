@@ -183,7 +183,7 @@ Map<String, Double> resMap = new HashMap<>();
 					+ map.get("usdx") + ", '" + dateStr + "')";
 		new DbHelper().insert(sql);
 		if (textArea.getLength() > TEXTAREA_LIMIT) textArea.clear();
-		textArea.appendText("rate：" + map.get("usdx").toString().substring(0, 7) + change + "；\t"
+		textArea.appendText(map.get("usdx").toString() + change + "；\t"
 							+ "usdeur：" + new BigDecimal(1 / map.get("eurusd")).setScale(4, BigDecimal.ROUND_HALF_UP).doubleValue() + changeUsdeur + "；\t"
 							+ "usdjpy：" + new BigDecimal(map.get("usdjpy")).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue() + changeUsdjpy + "；\t"
 							+ "usdgbp：" + new BigDecimal(1 / map.get("gbpusd")).setScale(4, BigDecimal.ROUND_HALF_UP).doubleValue() + changeUsdgbp + "；\t"

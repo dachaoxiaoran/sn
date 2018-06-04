@@ -92,9 +92,7 @@ public class WinAndFail {
 			Double resJD = new BigDecimal(buyCountJD - sellCountJD).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
 			
 			if (textArea.getLength() > TEXTAREA_LIMIT) textArea.clear();
-			if (res >= 0) textArea.appendText("buy：" + res + "；");
-			else textArea.appendText("sell：" + res + "；");
-			textArea.appendText("XS：" + resXS + "；JD：" + resJD + "；" + dateFormatTime.format(System.currentTimeMillis()) + "\n");
+			textArea.appendText(res + "；XS：" + resXS + "；JD：" + resJD + "；" + dateFormatTime.format(System.currentTimeMillis()) + "\n");
 		}
 	}
 }
